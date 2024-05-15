@@ -6,6 +6,38 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>hi from anubhav</h1>
+    <h1>URL Shortner</h1>
+    <% if (locals.id) { %>
+    <p>Generated Url : http://localhost:4000/url/redirect/<%= id %></p>
+    <% } %>
+    <div>
+      <form method="post" action="/url">
+        <label> Enter Url</label>
+        <input type="text" placeholder="https://www.example.com" name="url" />
+        <button type="submit">Generate</button>
+      </form>
+    </div>
+    <div>
+      <% if (locals.url) { %>
+      <table>
+        <thead>
+          <th>S.no</th>
+          <th>redirect</th>
+          <th>shortid</th>
+          <th>clicks</th>
+        </thead>
+        <tbody>
+          <% url.forEach((element,index) => { %>
+          <tr>
+            <td><%= index+1 %></td>
+            <td><%= element.redirecturl%></td>
+            <td><%= element.shortid %></td>
+            <td><%= element.visithistory.length %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <% } %>
+    </div>
   </body>
 </html>

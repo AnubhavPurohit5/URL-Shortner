@@ -1,31 +1,17 @@
 const express = require("express");
 const app = express();
-// const path = require("path");
-const urlrouter = require("./routes/url");
-const Url = require("./db/index");
-// app.set("view engine", "ejs");
-// app.set("views", path.resolve("./views"));
-app.use(express.json());
-app.use("/url", urlrouter);
-app.get("/url/yo/:shortid", async (req, res) => {
-  const shortid = req.params.shortid;
-  const entry = await Url.findOneAndUpdate(
-    { shortid },
-    {
-      $push: {
-        visithistory: {
-          timestamp: Date.now(),
-        },
-      },
-    }
-  );
-  res.redirect(entry.redirecturl);
-});
-app.get("/yo/test", async (req, res) => {
-  const allurl = await Url.find({});
-  res.render("home");
-});
+const path = require("path");
 
-app.listen(3000, () => {
-  console.log("listening to port");
-});
+const urlrouter = require("./routes/url");
+const staticrouter = require("./routes/static");
+const userrouter = require("./routes/user");
+const cookieParser = require("cookie-parser");
+app.set("view engine", "ejs");
+app.set("views", path.resolve("./views"));
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use("/url", urlrouter);
+app.use("/", staticrouter);
+app.use("/user", userrouter);
+app.listen(4000);
