@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-
+const middleware = require("./middleware/auth");
 const urlrouter = require("./routes/url");
 const staticrouter = require("./routes/static");
 const userrouter = require("./routes/user");
@@ -11,7 +11,7 @@ app.set("views", path.resolve("./views"));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use("/url", urlrouter);
+app.use("/url", middleware, urlrouter);
 app.use("/", staticrouter);
 app.use("/user", userrouter);
-app.listen(4000);
+app.listen(3000);
