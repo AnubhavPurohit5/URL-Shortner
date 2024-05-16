@@ -24,6 +24,8 @@ async function login(req, res) {
     const token = jwt.sign(value, jwtsecret);
     res.cookie("jwt", token);
     return res.redirect("/");
+  } else {
+    res.redirect("/signup");
   }
   // try {
   //   const jwttoken = req.cookies.jwt;

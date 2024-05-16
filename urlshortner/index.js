@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const middleware = require("./middleware/auth");
+const { middleware } = require("./middleware/auth");
 const urlrouter = require("./routes/url");
 const staticrouter = require("./routes/static");
 const userrouter = require("./routes/user");
